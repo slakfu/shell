@@ -17,26 +17,24 @@
 # directory named the same thing.
 #--------------------------------------------------------------------------79-#
 
-# dotfiles directory where your master dotfiles/directories will be found
-dotfilesdir="/home/some directory/dotfiles"
-
 # Print usage
 printUsage() {
   echo ""
-  echo "Usage: sh dotlinks.sh <option>"
+  echo "Usage: sh dotlinks.sh <option> <dotfiles directory>"
   echo ""
   echo "       This script will help maintain your dotfiles."
   echo ""
-  echo "       Make sure to set the dotfilesdir variable in this script to "
-  echo "       point to where your master dotfiles are located. "
-  echo ""
-  echo "       Options:"
+  echo "       <option>:"
   echo "               check   Reads all files and directories in the "
   echo "                       dotfiles directory and performs a dry run"
   echo "                       with output for the user to resolve conflicts."
   echo ""
   echo "               run     Passively create sylinks to the dotfiles and "
   echo "                       dotdirectories in the dotfiles directory."
+  echo ""
+  echo "       <dotfiles direcory>:"
+  echo "               This is the path to the directory where your master"
+  echo "               dotfiles are located."
   echo ""
 }
 
@@ -81,8 +79,12 @@ run() {
 if [ -z "$1" ]; then
   printUsage
   exit 1
+elif [ -z "$2" ]; then
+  printUsage
+  exit 1
 else
   option=$1
+  dotfilesdir=$2
 fi
 
 # Check arguments and act accordingly
